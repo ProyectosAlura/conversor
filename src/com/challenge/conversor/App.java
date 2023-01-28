@@ -1,60 +1,82 @@
 package com.challenge.conversor;
 
-import java.text.DecimalFormat;
-import java.util.HashMap;
-import java.util.Map;
-
+import com.challenge.conversor.controller.LongitudController;
 import com.challenge.conversor.controller.MonedaController;
+import com.challenge.conversor.controller.PresionController;
+import com.challenge.conversor.controller.VolumenController;
+import com.challenge.conversor.model.Conversor;
 import com.challenge.conversor.model.Item;
 import com.challenge.conversor.view.InterfazGrafica;
 
 
+/***
+* @author Daniel Caro
+* @version 1.0
+* @see https://github.com/DanielC001
+*/
+
 public class App {
-    
-    /***
-     * @author Daniel Caro
-     * @version 1.0
-     * @param args
-     */
+
     public static void main(String[] args) {
 
-        MonedaController moneda = new MonedaController();
-        Item [] opciones = moneda.getOpcionesMonedas();
         boolean iniciar = true;
-        double valor=0,resultado=0;
-        String conversor = InterfazGrafica.desplegarMenuPrincipal();
+        Item opcionConversor;
+        Conversor moneda = MonedaController.obtnerConversor();
+        Conversor longitud = LongitudController.obtnerConversor();
+        Conversor volumen = VolumenController.obtnerConversor();
+        Conversor presion = PresionController.obtnerConversor();
+        Conversor[] conversores = { moneda, longitud, volumen, presion };
 
-        while (iniciar) {
-            if (conversor.equals("Conversor de Monedas")) {
-                Item opcionDeConversion = InterfazGrafica.desplegarMenu(opciones);
-                
-                for (Item item:opciones){
-                    if(item.getNombre().equals(opcionDeConversion.getNombre())){
-                        try {
-                            valor = InterfazGrafica.desplegarInput();
-                            resultado = valor*item.getValorConversion();
-                        } catch (Exception e) {
-                            InterfazGrafica.desplegarMensajeError("Valor no valido");
-                            break;
-                        }
-                        InterfazGrafica.desplegarMensaje("Tienes $" + String.format("%.2f", resultado) + " Dolares");
-                        break;
-                    }
-                }
-            }else{
-                iniciar=false;
-                continue;
+        while (iniciar) { //Inicia el programa
+            Conversor conversorSeleccionado = InterfazGrafica.desplegarMenuPrincipal(conversores); 
+            switch (conversorSeleccionado.getTipo()) { //Obtener el tipo de conversor
+                case "moneda":
+                    opcionConversor = InterfazGrafica.desplegarMenu(conversorSeleccionado.getItems(), //Obtener el item del conversor
+                            conversorSeleccionado.getNombre());
+                        calcular(conversorSeleccionado, opcionConversor, "Tienes: "); //Calcular la conversión
+                    break;
+                    case "longitud":
+                    opcionConversor = InterfazGrafica.desplegarMenu(conversorSeleccionado.getItems(), //Obtener el item del conversor
+                            conversorSeleccionado.getNombre());
+                        calcular(conversorSeleccionado, opcionConversor, "Tienes: "); //Calcular la conversión
+                    break;
+                    case "volumen":
+                    opcionConversor = InterfazGrafica.desplegarMenu(conversorSeleccionado.getItems(), //Obtener el item del conversor
+                            conversorSeleccionado.getNombre());
+                        calcular(conversorSeleccionado, opcionConversor, "Tienes: "); //Calcular la conversión
+                    break;
+                    case "presion":
+                    opcionConversor = InterfazGrafica.desplegarMenu(conversorSeleccionado.getItems(), //Obtener el item del conversor
+                            conversorSeleccionado.getNombre());
+                        calcular(conversorSeleccionado, opcionConversor, "Tienes: "); //Calcular la conversión
+                    break;
+                default:
+                    break;
+                    
             }
 
-            int estado = InterfazGrafica.deplegarOption();
-            if (estado == 0) {
-                InterfazGrafica.desplegarMenuPrincipal();
-            } else {
+            int estado = InterfazGrafica.deplegarOption();   //Preguntar si se repite el programa
+            if (estado != 0) {
                 InterfazGrafica.desplegarMensaje("Programa terminado");
                 iniciar = false;
+            } 
+        }
+    }
+
+    /**
+     * Método para calcular y desplegar el resultado de la conversión
+     * @param conversorSeleccionado
+     * @param opcionConversor
+     * @param mensaje
+     */
+    public static void calcular(Conversor conversorSeleccionado , Item opcionConversor,String mensaje){
+        if (opcionConversor != null && conversorSeleccionado.buscarItem(opcionConversor)) {
+            double valor = InterfazGrafica.desplegarInput();
+            if(valor>0){
+                double resultado = conversorSeleccionado.calcularConversion(valor, opcionConversor);
+                InterfazGrafica.desplegarResultado(mensaje, resultado, opcionConversor);
             }
         }
-
     }
 
 }
