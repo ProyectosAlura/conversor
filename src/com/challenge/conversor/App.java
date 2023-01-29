@@ -8,7 +8,6 @@ import com.challenge.conversor.model.Conversor;
 import com.challenge.conversor.model.Item;
 import com.challenge.conversor.view.InterfazGrafica;
 
-
 /***
 * @author Daniel Caro
 * @version 1.0
@@ -36,19 +35,19 @@ public class App {
                         calcular(conversorSeleccionado, opcionConversor, "Tienes: "); //Calcular la conversión
                     break;
                     case "longitud":
-                    opcionConversor = InterfazGrafica.desplegarMenu(conversorSeleccionado.getItems(), //Obtener el item del conversor
+                    opcionConversor = InterfazGrafica.desplegarMenu(conversorSeleccionado.getItems(), 
                             conversorSeleccionado.getNombre());
-                        calcular(conversorSeleccionado, opcionConversor, "Tienes: "); //Calcular la conversión
+                        calcular(conversorSeleccionado, opcionConversor, "Tienes: "); 
                     break;
                     case "volumen":
-                    opcionConversor = InterfazGrafica.desplegarMenu(conversorSeleccionado.getItems(), //Obtener el item del conversor
+                    opcionConversor = InterfazGrafica.desplegarMenu(conversorSeleccionado.getItems(), 
                             conversorSeleccionado.getNombre());
-                        calcular(conversorSeleccionado, opcionConversor, "Tienes: "); //Calcular la conversión
+                        calcular(conversorSeleccionado, opcionConversor, "Tienes: "); 
                     break;
                     case "presion":
-                    opcionConversor = InterfazGrafica.desplegarMenu(conversorSeleccionado.getItems(), //Obtener el item del conversor
+                    opcionConversor = InterfazGrafica.desplegarMenu(conversorSeleccionado.getItems(), 
                             conversorSeleccionado.getNombre());
-                        calcular(conversorSeleccionado, opcionConversor, "Tienes: "); //Calcular la conversión
+                        calcular(conversorSeleccionado, opcionConversor, "Tienes: "); 
                     break;
                 default:
                     break;

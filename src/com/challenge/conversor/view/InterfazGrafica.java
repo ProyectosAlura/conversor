@@ -66,7 +66,7 @@ public abstract class InterfazGrafica {
      */
     public static double desplegarInput() {
         double valor =-1.0;
-        String x =  JOptionPane.showInputDialog(null, "Ingrese la cantidad de dinero que deseas convertir:");
+        String x =  JOptionPane.showInputDialog(null, "Ingrese el valor que  desea convertir:");
     
         if(x != null){
 
